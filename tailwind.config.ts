@@ -55,7 +55,18 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		fontFamily: {
+			// Font by Role
+			"primary-title": ["var(--font-bebas-neue)"],
+			"primary-body": ["var(--font-comfortaa)"],
+			"primary-desc": ["var(--font-source-code-pro)"],
+
+			// Font by Name
+			"bebas-neue": ["var(--font-bebas-neue)"],
+			"comfortaa": ["var(--font-comfortaa)"],
+			"source-code-pro": ["var(--font-source-code-pro)"],
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
