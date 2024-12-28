@@ -1,9 +1,46 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/misc";
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, ...props }, ref) => {
+export interface InputProps extends React.ComponentProps<"input"> {
+  /**
+   * Disables the default action of "Enter"
+   */
+  disableEnter?: boolean;
+  /**
+   * The formRef to submit when the user hits "Enter"
+   * @requires disableEnter to be true, and the form will be submitted without triggering "onKeyDown"
+   */
+  formRef?: React.RefObject<HTMLFormElement> | null;
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      type,
+      autoComplete = "off",
+      disableEnter = false,
+      formRef,
+      onKeyDown,
+      ...props
+    },
+    ref
+  ) => {
+    const keyDownHandler = React.useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (disableEnter && e.key === "Enter") {
+          e.preventDefault();
+          e.stopPropagation();
+          if (formRef && formRef.current) {
+            formRef.current.requestSubmit();
+          }
+          return;
+        }
+        onKeyDown?.(e);
+      },
+      [disableEnter, formRef, onKeyDown]
+    );
     return (
       <input
         type={type}
@@ -12,11 +49,13 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
           className
         )}
         ref={ref}
+        autoComplete={autoComplete}
+        onKeyDown={keyDownHandler}
         {...props}
       />
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
-export { Input }
+export { Input };

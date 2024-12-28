@@ -6,10 +6,10 @@ Just send your message.
 
 ## Documentation Pages
 
-| Page Name | Description |
-| ------------ | ---- |
-| [Features](docs/features.md)     | List of features and ideas to put into the app |
-| [Usage](docs/usage.md) | Environment Variables and other needed items to make the app work |
+| Page Name                    | Description                                                       |
+| ---------------------------- | ----------------------------------------------------------------- |
+| [Features](docs/features.md) | List of features and ideas to put into the app                    |
+| [Usage](docs/usage.md)       | Environment Variables and other needed items to make the app work |
 
 ## Commit Styling
 
