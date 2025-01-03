@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "title": {
+      "default": "BLMChat",
+      "template": "%s - BLMChat"
+    },
+    "description": "A Next.JS webapp for chat and communication"
+  },
+  "middleware": {
+    "public_routes": [
+      { "pathname": "/", "isParent": false },
+      { "pathname": "/auth", "isParent": true }
+    ]
+  }
+}

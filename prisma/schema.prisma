@@ -14,15 +14,19 @@ datasource db {
 }
 
 model User {
-  id             String         @id @default(cuid())
-  username       String         @unique
-  email          String         @unique
-  emailValidated Boolean        @default(false)
-  imageUrl       String?
-  userProviders  UserProvider[] @relation("LoginProviderToUser")
-  otps           OTPCode[]      @relation("OTPToUser")
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id              String             @id @default(cuid())
+  username        String             @unique
+  dob             DateTime
+  email           String             @unique
+  emailValidated  Boolean            @default(false)
+  imageUrl        String?
+  acceptedTos     DateTime?
+  acceptedPrivacy DateTime?
+  userProviders   UserProvider[]     @relation("LoginProviderToUser")
+  otps            OTPCode[]          @relation("OTPToUser")
+  heldUsernames   UsernameCooldown[] @relation("UsernameCooldownToUser")
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 }
 
 enum UserProviderType {
@@ -42,17 +46,24 @@ model UserProvider {
   updatedAt     DateTime         @updatedAt
 }
 
-enum OTPType {
-  EMAIL_VALIDATION
-}
-
 model OTPCode {
   id        String   @id @default(cuid())
-  otpType   OTPType
+  otpType   String
   userid    String
   user      User     @relation("OTPToUser", fields: [userid], references: [id], onDelete: Cascade)
   otpHash   String
+  isActive  Boolean  @default(true)
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model UsernameCooldown {
+  id         String   @id @default(cuid())
+  username   String   @unique
+  expiresAt  DateTime
+  lastUserId String
+  lastUser   User     @relation("UsernameCooldownToUser", fields: [lastUserId], references: [id], onDelete: NoAction)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

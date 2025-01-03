@@ -19,40 +19,40 @@ import { useEffect, useState } from "react";
 
 export function UserDropdownMenu() {
   const pathname = usePathname();
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (isOpen) setIsOpen(false);
-  // }, [status, pathname]);
+  useEffect(() => {
+    if (isOpen) setIsOpen(false);
+  }, [status, pathname]);
 
-  // if (status === "loading")
-  //   return <Loader2 className="w-4 h-4 mr-6 animate-spin" />;
+  if (status === "loading")
+    return <Loader2 className="w-4 h-4 mr-6 animate-spin" />;
 
-  // if (status === "unauthenticated") {
-  //   return (
-  //     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-  //       <DropdownMenuTrigger asChild>
-  //         <Button
-  //           className="flex items-center justify-start gap-2 py-1 px-2"
-  //           variant="accent"
-  //         >
-  //           <User2 className="w-4 h-4" />
-  //           <span>Sign In Now!</span>
-  //           <ChevronDown className="w-4 h-4" />
-  //         </Button>
-  //       </DropdownMenuTrigger>
-  //       <DropdownMenuContent>
-  //         <DropdownMenuItem asChild>
-  //           <Link href="/auth/login">Log In</Link>
-  //         </DropdownMenuItem>
-  //         <DropdownMenuItem asChild>
-  //           <Link href="/auth/register">Register now for free!</Link>
-  //         </DropdownMenuItem>
-  //       </DropdownMenuContent>
-  //     </DropdownMenu>
-  //   );
-  // }
+  if (status === "unauthenticated") {
+    return (
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button
+            className="flex items-center justify-start gap-2 py-1 px-2"
+            variant="accent"
+          >
+            <User2 className="w-4 h-4" />
+            <span>Sign In Now!</span>
+            <ChevronDown className="w-4 h-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem asChild>
+            <Link href="/auth/login">Log In</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/auth/register">Register now for free!</Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
